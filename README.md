@@ -1,6 +1,6 @@
 # Alarmas de pago — prototipo móvil
 
-Prototipo estudiantil desarrollado con Expo, React Native y TypeScript a partir de la página **Mobile** del archivo de Figma del proyecto.
+Prototipo  desarrollado con Expo, React Native y TypeScript a partir de las pantallas de **Mobile** del archivo de Figma del proyecto.
 
 La aplicación no usa backend ni realiza pagos reales. Su objetivo es reproducir las pantallas y permitir recorrer el flujo de navegación con controles interactivos.
 
@@ -24,21 +24,3 @@ npm start
 ```
 
 Después, escanee el código QR desde Expo Go. También puede usar `npm run android` si tiene un emulador Android configurado.
-
-## Generar el APK
-
-El perfil `preview` de `eas.json` está configurado para producir un APK instalable:
-
-```bash
-npx eas-cli@latest login
-npx eas-cli@latest build --platform android --profile preview
-```
-
-Al terminar, Expo entrega una URL para descargar el archivo `.apk`. La compilación requiere una cuenta gratuita de Expo.
-
-## Verificaciones
-
-```bash
-npx tsc --noEmit
-npx expo export --platform android
-```

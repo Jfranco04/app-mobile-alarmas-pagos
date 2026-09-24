@@ -28,6 +28,7 @@ export default function App() {
   const go=(s:Screen)=>setStack(v=>[...v,s]);
   const back=()=>setStack(v=>v.length>1?v.slice(0,-1):v);
   const reset=(s:Screen='home')=>setStack([s]);
+  const resetFlow=(...screens:Screen[])=>setStack(['home',...screens]);
   const show=(f:Feedback)=>{setFeedback(f);go('feedback')};
   const open=(a:Alarm)=>{setSelectedId(a.id);go(a.paid?'paid':'pending')};
   const markPaid=()=>{if(!paymentDate.trim()){show('error');return;} setAlarms(v=>v.map(a=>a.id===selected.id?{...a,paid:true,paidDate:paymentDate}:a));show('paid')};
@@ -47,7 +48,7 @@ export default function App() {
   else if(screen==='actions') body=<Actions edit={()=>go('edit')} remove={()=>go('delete')} cancel={back}/>;
   else if(screen==='edit') body=<Edit alarm={selected} back={back} save={()=>show('edited')}/>;
   else if(screen==='delete') body=<Delete alarm={selected} back={back} remove={remove}/>;
-  else if(screen==='feedback') body=<FeedbackView kind={feedback} action={()=>feedback==='validation'?reset('new'):feedback==='created'?reset('pending'):feedback==='paid'?reset('paid'):feedback==='error'?reset('confirm'):feedback==='pending'?reset('pending'):reset()}/>;
+  else if(screen==='feedback') body=<FeedbackView kind={feedback} action={()=>feedback==='validation'?resetFlow('new'):feedback==='created'?resetFlow('pending'):feedback==='paid'?resetFlow('paid'):feedback==='error'?resetFlow('pending','confirm'):feedback==='pending'?resetFlow('pending'):reset()}/>;
   else body=<Home alarms={alarms} tab={tab} setTab={setTab} open={open} create={()=>go('new')} notification={()=>go('notification')}/>;
   return <View style={s.app}><StatusBar style="dark"/><Animated.View style={[s.phone,{opacity:anim,transform:[{translateX:anim.interpolate({inputRange:[0,1],outputRange:[14,0]})}]}]}>{body}</Animated.View></View>;
 }
